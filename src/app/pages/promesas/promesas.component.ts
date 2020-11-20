@@ -1,6 +1,5 @@
-import { ViewFlags } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
-import { resolve } from 'dns';
+
 
 @Component({
   selector: 'app-promesas',

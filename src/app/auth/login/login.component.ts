@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +11,34 @@ import { Router } from '@angular/router';
     './login.component.css'
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor( private router: Router ) { }
+  public formSubmitted = false;
 
-  ngOnInit(): void {
-  }
+  public loginForm = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    recordarme: [false]
+  });
 
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
+              private usuarioService: UsuarioService
+  ) { }
+  /**
+   * Funcion que se encarga de logear un usuario
+   */
   // tslint:disable-next-line: typedef
   login() {
-    this.router.navigateByUrl('/');
+    //  this.router.navigateByUrl('/');
+    this.usuarioService.login(this.loginForm.value).subscribe( res => {
+      console.log(res);
+    }, (err) => {
+      // tslint:disable-next-line: prefer-const
+      let mensaje: string = err.error.msg;
+      Swal.fire('Error', mensaje.toUpperCase(), 'error');
+    });
   }
+
 
 }
