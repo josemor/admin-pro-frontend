@@ -14,4 +14,5 @@ export class HeaderComponent {
   logOut() {
     this.usuarioService.logOut();
   }
+
 }
