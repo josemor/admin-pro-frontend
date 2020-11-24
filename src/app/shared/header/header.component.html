@@ -261,7 +261,11 @@
             aria-haspopup="true"
             aria-expanded="false"
             ><img
-              src="./assets/images/users/1.jpg"
+              [src]="
+                usuario.imagenUrl
+                  ? usuario.imagenUrl
+                  : '../assets/images-login/no-user.jpg'
+              "
               alt="user"
               class="profile-pic"
           /></a>
@@ -270,11 +274,20 @@
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img">
-                                        <img src="./assets/images/users/1.jpg" alt="user" />
+                                        <img [src]="
+                        usuario.imagenUrl
+                          ? usuario.imagenUrl
+                          : '../assets/images-login/no-user.jpg'
+                      " alt="user" />
                                     </div>
                                     <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p>
+                                        <small>
+                      {{ usuario.nombre | slice: 0:21 }}
+                      {{ usuario.nombre.length > 21 ? "." : "" }}
+                    </small>
+                                        <p class="text-muted">
+                                            <small>{{ usuario.email }}</small>
+                                        </p>
                                         <a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a
                     >
                   </div>
@@ -282,7 +295,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a href="#"><i class="ti-user"></i> My Profile</a>
+                <a routerLink="./perfil"><i class="ti-user"></i> Mi perfil</a>
                             </li>
                             <li>
                                 <a href="#"><i class="ti-wallet"></i> My Balance</a>
@@ -297,14 +310,16 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a (click)="logOut()" class="cursor"><i class="fa fa-power-off"></i> Logout</a>
-                            </li>
-                        </ul>
-                        </div>
-                </li>
+                <a (click)="logOut()" class="cursor"
+                  ><i class="fa fa-power-off"></i> Logout</a
+                >
+              </li>
             </ul>
-            </div>
-    </nav>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>
 <!-- ============================================================== -->
 <!-- End Topbar header -->
