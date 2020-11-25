@@ -10,23 +10,24 @@ export class SidebarService {
       titulo: 'Dashboard',
       icono: 'mdi mdi-gauge',
       submenu:
-      [
-        {
-          titulo: 'Main', url: '/'
-        },
-        {
-          titulo: 'ProgressBar', url: 'progress'
-        },
-        {
-          titulo: 'Promesas', url: 'promesas'
-        },
-        {
-          titulo: 'Gráficas', url: 'grafica1'
-        },
-        {
-          titulo: 'Rxjs', url: 'rxjs'
-        }
-      ]
+        [
+          { titulo: 'Main', url: '/' },
+          { titulo: 'ProgressBar', url: 'progress' },
+          { titulo: 'Promesas', url: 'promesas' },
+          { titulo: 'Gráficas', url: 'grafica1' },
+          { titulo: 'Rxjs', url: 'rxjs' }
+        ]
+
+    },
+    {
+      titulo: 'Matenimiento',
+      icono: 'mdi mdi-folder-lock-open',
+      submenu:
+        [
+          { titulo: 'Usuarios', url: 'usuarios' },
+          { titulo: 'Hospitales', url: 'hospitales' },
+          { titulo: 'Médicos', url: 'medicos' }
+        ]
 
     }
   ];

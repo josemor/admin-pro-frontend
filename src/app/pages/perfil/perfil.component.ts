@@ -19,8 +19,8 @@ export class PerfilComponent implements OnInit {
   public imgTemp: any = null;
 
   constructor(private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService,
-    private fileUploadService: FileUploadService) {
+              private usuarioService: UsuarioService,
+              private fileUploadService: FileUploadService) {
 
     this.usuario = this.usuarioService.usuario;
 

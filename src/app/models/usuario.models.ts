@@ -19,13 +19,17 @@ export class Usuario {
         // tslint:disable-next-line: typedef
         get imagenUrl() {
 
-            if (this.img.includes('https')) {
+            if (!this.img) {
+                return `${BASE_URL}/upload/usuarios/no-user`;
+
+            } else if (this.img.includes('https')) {
                 return this.img;
-            }
-            if (this.img) {
-                return `${ BASE_URL }/upload/usuarios/${ this.img }`;
+
+            } else if (this.img) {
+                return `${BASE_URL}/upload/usuarios/${this.img}`;
+
             } else {
-                return `${ BASE_URL }/upload/usuarios/no-user`;
+                return `${BASE_URL}/upload/usuarios/no-user`;
             }
         }
 }
