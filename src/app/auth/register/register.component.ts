@@ -21,7 +21,7 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     password2: ['', Validators.required],
-    checkTerminos: [false, Validators.required],
+    checkTerminos: [true, Validators.required],
   }, {
     validators: this.passwordsIguales('password', 'password2')
   });
@@ -33,7 +33,7 @@ export class RegisterComponent {
 
   crearUsuario(): void {
     this.formSubmitted = true;
-    console.log(this.registerForm.value);
+    // console.log(this.registerForm.value);
 
     if (this.registerForm.invalid) {
       return;
@@ -49,7 +49,7 @@ export class RegisterComponent {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'REGISTRO EXITOSO!',
+        title: 'Registro exitoso!',
         showConfirmButton: false,
         timer: 1500
       });
@@ -57,7 +57,7 @@ export class RegisterComponent {
       // Si sucede un error
       Swal.fire({
         icon: 'error',
-        text: 'USUARIO YA EXISTE'
+        text: 'Usuario ya existe'
       });
     });
   }
@@ -100,6 +100,5 @@ export class RegisterComponent {
     };
 
   }
-
 
 }

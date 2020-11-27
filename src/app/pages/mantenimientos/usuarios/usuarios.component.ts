@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 import { Usuario } from '../../../models/usuario.models';
 
 import { BusquedasService } from '../../../services/busquedas.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { UsuarioService } from '../../../services/usuario.service';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -74,7 +74,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       return this.usuarios = this.usuariosTemp;
     }
     this.busquedasService.buscar( 'usuarios', termino )
-    .subscribe( resp => {
+    .subscribe( (resp: Usuario[]) => {
       this.usuarios = resp;
     } );
   }

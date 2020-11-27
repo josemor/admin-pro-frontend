@@ -23,17 +23,20 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total de usuarios ({{ totalUsuarios }})</h4>
-                <h6 class="card-subtitle">Usuarios registrados en la aplicación</h6>
+                <h4 class="card-title">Usuarios</h4>
+                <h6 class="card-subtitle">
+                    Usuarios registrados
+                    <span class="badge badge-info"> ( {{ totalUsuarios }} )</span>
+                </h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th class="w100">Avatar</th>
-                                <th>Correo</th>
-                                <th>Nombre</th>
-                                <th class="w140">Role</th>
-                                <th class="w100">Auth</th>
+                                <th class="w100 text-center">Avatar</th>
+                                <th class="text-center">Correo</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="w140 text-center">Role</th>
+                                <th class="w100 text-center">Auth</th>
                                 <th class="text-nowrap w100">Acciones</th>
                             </tr>
                         </thead>
@@ -72,11 +75,17 @@
           </table>
         </div>
         <div class="text-center" *ngIf="txtBuscar.value.length === 0">
-          <button (click)="cambiarPaginacion(-5)" class="btn btn-secondary">
+          <button
+            (click)="cambiarPaginacion(-5)"
+            class="btn waves-effect waves-light btn-rounded btn-facebook"
+          >
             Anteriores
           </button>
           &nbsp;
-          <button (click)="cambiarPaginacion(+5)" class="btn btn-secondary">
+          <button
+            (click)="cambiarPaginacion(+5)"
+            class="btn waves-effect waves-light btn-rounded btn-facebook"
+          >
             Siguientes
           </button>
         </div>

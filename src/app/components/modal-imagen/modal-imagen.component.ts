@@ -41,9 +41,8 @@ export class ModalImagenComponent implements OnInit {
     };
   }
 
-
+  // Modal para subir imagenes del avatar
   subirImagen() {
-
     const id = this.modalImagenService.id;
     const tipo = this.modalImagenService.tipo;
     this.fileUploadService
@@ -52,7 +51,7 @@ export class ModalImagenComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Imagen de usuario actualizada',
+          title: `Imagen de ${ tipo } actualizada`,
           showConfirmButton: false,
           timer: 2000
         });

@@ -83,7 +83,6 @@ export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   attachSignin(element) {
-    
     this.auth2.attachClickHandler( element, {},
         (googleUser) => {
             const id_token = googleUser.getAuthResponse().id_token;

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.models';
+import { Hospital } from '../models/hospital.models';
 
 const BASE_URL = environment.base_url;
 
@@ -39,6 +40,10 @@ export class BusquedasService {
     );
   }
 
+  private transformarHospitales( resultados: any[] ): Hospital[] {
+    return resultados;
+  }
+
   // tslint:disable-next-line: typedef
   buscar(
     tipo: 'usuarios'|'medicos'|'hospitales',
@@ -49,8 +54,13 @@ export class BusquedasService {
       map( (resp: any) => {
 
         switch (tipo) {
+
           case 'usuarios':
             return this.transformarUsuarios( resp.resultados );
+
+          case 'hospitales':
+            return this.transformarHospitales( resp.resultados );
+
           default:
             return [];
         }

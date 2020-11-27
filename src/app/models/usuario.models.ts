@@ -16,21 +16,21 @@ export class Usuario {
         public role?: string,
         public uid?: string) { }
 
-        // tslint:disable-next-line: typedef
-        get imagenUrl() {
+    // tslint:disable-next-line: typedef
+    get imagenUrl() {
 
-            if (!this.img) {
-                return `${BASE_URL}/upload/usuarios/no-user`;
+        if (!this.img) {
+            return `${BASE_URL}/upload/usuarios/no-user`;
 
-            } else if (this.img.includes('https')) {
-                return this.img;
+        } else if (this.img.includes('https')) {
+            return this.img;
 
-            } else if (this.img) {
-                return `${BASE_URL}/upload/usuarios/${this.img}`;
+        } else if (this.img) {
+            return `${BASE_URL}/upload/usuarios/${this.img}`;
 
-            } else {
-                return `${BASE_URL}/upload/usuarios/no-user`;
-            }
+        } else {
+            return `${BASE_URL}/upload/usuarios/no-user`;
         }
+    }
 }
 

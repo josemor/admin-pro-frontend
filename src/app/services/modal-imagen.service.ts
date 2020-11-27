@@ -17,6 +17,7 @@ export class ModalImagenService {
 
   public actualizacionImagen: EventEmitter<String> = new EventEmitter<String>();
 
+  constructor() { }
   // tslint:disable-next-line: typedef
   get ocultarModal() {
     return this._ocultarModal;
@@ -46,6 +47,4 @@ export class ModalImagenService {
     this._ocultarModal = true;
   }
 
-
-  constructor() { }
 }
