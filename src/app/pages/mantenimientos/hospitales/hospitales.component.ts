@@ -17,7 +17,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   public hospitales: Hospital[] = [];
   public cargando = true;
-  private  imgSubs: Subscription;
+  public imgSubs: Subscription;
 
   constructor(  private hospitalService: HospitalService,
                 private modalImagenService: ModalImagenService,
@@ -30,12 +30,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.cargarHospitales();
-    this.imgSubs = this.modalImagenService.actualizacionImagen
-    .pipe(
-      delay(300)
-    )
-    .subscribe( img =>  this.cargarHospitales()
-    );
+    this.actualizarFoto();
   }
 
   // tslint:disable-next-line: typedef
@@ -125,6 +120,17 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: typedef
   abrirModal(hospital: Hospital) {
     this.modalImagenService.abrirModal('hospitales', hospital._id, hospital.img);
+
+  }
+  // metodo encargado de actualizar foto en todo el componente
+  // tslint:disable-next-line: typedef
+  actualizarFoto() {
+    this.imgSubs = this.modalImagenService.actualizacionImagen
+    .pipe(
+      delay(300)
+    )
+    .subscribe( () =>  this.cargarHospitales()
+    );
 
   }
 

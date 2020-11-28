@@ -37,14 +37,23 @@ export class MedicoService {
 
   }
   // tslint:disable-next-line: typedef
-  crearMedicos( medico: Medico ) {
+  crearMedicos( medico:{ nombre: string, hospital: string } ) {
     const url = `${BASE_URL}/medicos`;
     return this.http.post(url, medico, this.headers);
-S
+  }
+
+  // tslint:disable-next-line: typedef
+  obtenerMedicoById(id: string) {
+    const url = `${BASE_URL}/medicos/${id}`;
+    return this.http.get(url, this.headers)
+    .pipe(
+      map( (resp: { ok: boolean, medico: Medico }) => resp.medico )
+    );
+
   }
   // tslint:disable-next-line: typedef
   actualizarMedicos( medico: Medico ) {
-    const url = `${BASE_URL}/medicos/${_id}`;
+    const url = `${BASE_URL}/medicos/${medico._id}`;
     return this.http.put(url, medico, this.headers);
   }
   // tslint:disable-next-line: typedef

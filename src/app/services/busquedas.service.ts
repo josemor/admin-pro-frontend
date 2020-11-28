@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.models';
 import { Hospital } from '../models/hospital.models';
+import { Medico } from '../models/medico.models';
 
 const BASE_URL = environment.base_url;
 
@@ -42,6 +43,10 @@ export class BusquedasService {
 
   private transformarHospitales( resultados: any[] ): Hospital[] {
     return resultados;
+
+  }
+  private transformarMedico( resultados: any[] ): Medico[] {
+    return resultados;
   }
 
   // tslint:disable-next-line: typedef
@@ -60,6 +65,9 @@ export class BusquedasService {
 
           case 'hospitales':
             return this.transformarHospitales( resp.resultados );
+
+          case 'medicos':
+            return this.transformarMedico( resp.resultados );
 
           default:
             return [];
