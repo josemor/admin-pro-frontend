@@ -6,6 +6,7 @@ import { HospitalService } from '../../../services/hospital.service';
 import { MedicoService } from '../../../services/medico.service';
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
+import { delay } from 'rxjs/operators';
 
 
 @Component({
@@ -23,10 +24,10 @@ export class MedicoComponent implements OnInit {
   public medicoSelecionado: Medico;
 
   constructor(private formBuilder: FormBuilder,
-    private hospitalService: HospitalService,
-    private medicoService: MedicoService,
-    private roter: Router,
-    private activatedRoute: ActivatedRoute) { }
+              private hospitalService: HospitalService,
+              private medicoService: MedicoService,
+              private roter: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => this.cargarMedico(id));
@@ -84,17 +85,19 @@ export class MedicoComponent implements OnInit {
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Si, Crearlo!'
-      }).then(() => {
-        this.medicoService.crearMedicos(this.medicoForm.value).subscribe((resp: any) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            html: `El médico, ${text} fue creado`,
-            showConfirmButton: false,
-            timer: 2000
+      }).then(( result ) => {
+        if ( result.isConfirmed ) {
+          this.medicoService.crearMedicos(this.medicoForm.value).subscribe((resp: any) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              html: `El médico, ${text} fue creado`,
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.roter.navigateByUrl(`/dashboard/medicos/${resp.medico._id}`);
           });
-          this.roter.navigateByUrl(`/dashboard/medicos/${resp.medico._id}`);
-        });
+        }
       });
     }
   }
@@ -109,9 +112,18 @@ export class MedicoComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line: typedef
   cargarMedico(id: string) {
-    this.medicoService.obtenerMedicoById(id).subscribe(medico => {
-      console.log(medico);
+    if (id === 'nuevo') {
+      return;
+    }
+    this.medicoService.obtenerMedicoById(id)
+    .pipe(
+      delay(300)
+    ).subscribe(medico => {
+      if (!medico) {
+        return this.roter.navigateByUrl(`/dashboard/medicos`);
+      }
       const { nombre, hospital: { _id } } = medico;
       this.medicoSelecionado = medico;
       this.medicoForm.setValue({ nombre, hospital: _id });
