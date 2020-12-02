@@ -41,8 +41,6 @@ export class LoginComponent implements OnInit {
   login() {
 
     this.usuarioService.login(this.loginForm.value).subscribe(res => {
-      console.log(res);
-
       // Implemetar check de recuerdame.
       if (this.loginForm.get('recordarme').value) {
         localStorage.setItem('email', this.loginForm.get('email').value);
@@ -86,7 +84,6 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler( element, {},
         (googleUser) => {
             const id_token = googleUser.getAuthResponse().id_token;
-            // console.log(id_token);
             this.usuarioService.loginGoogle( id_token )
               .subscribe( resp => {
                 // Navegar al Dashboard

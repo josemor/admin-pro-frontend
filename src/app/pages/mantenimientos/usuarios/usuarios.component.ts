@@ -110,8 +110,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: typedef
   cambiarRole( usuario: Usuario ) {
     this.usuarioService.guardarUsuario( usuario ).subscribe( resp => {
-      console.log(resp);
-
     });
 
   }

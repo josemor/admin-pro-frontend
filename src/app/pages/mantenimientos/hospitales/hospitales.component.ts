@@ -51,13 +51,11 @@ export class HospitalesComponent implements OnInit, OnDestroy {
       .subscribe( hospitales => {
         this.cargando = false;
         this.hospitales = hospitales;
-        // console.log( this.hospitales);
       });
   }
 
   // tslint:disable-next-line: typedef
   guardarCambios(hospital: Hospital) {
-    console.log(hospital._id);
     this.hospitalService.actualizarHospital( hospital._id, hospital.nombre ).subscribe(resp => {
       const text = `<b> ${hospital.nombre }</b>`;
       Swal.fire({
@@ -76,7 +74,6 @@ export class HospitalesComponent implements OnInit, OnDestroy {
    // tslint:disable-next-line: typedef
    eliminarCambios(hospital: Hospital) {
     const text = `<b> ${hospital.nombre }</b>`;
-    console.log(hospital._id);
     Swal.fire({
       title: '¿Borrar hospital?',
       html: `Esta a punto de borrar el hospital ${ text }`,

@@ -108,7 +108,6 @@ export class MedicoComponent implements OnInit {
   hospitalSeleccionar() {
     this.medicoForm.get('hospital').valueChanges.subscribe(hospitalId => {
       this.hospitalSeleccionado = this.hospitales.find(hospital => hospital._id === hospitalId);
-      console.log(this.hospitalSeleccionado);
     });
 
   }

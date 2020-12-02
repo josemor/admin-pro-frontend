@@ -13,16 +13,8 @@ export class RxjsComponent implements OnDestroy{
   intervalSubs: Subscription;
 
   constructor() {
-
-   /* this.retornaObervable().pipe(
-      retry(2)
-    ).subscribe(valor => console.log('Subs', valor),
-      (err) => console.warn('Error', err),
-      () => console.log('Obs Terminado')
-    );*/
-
-     this.intervalSubs = this.retornaIntervalo().subscribe((valor) => console.log(valor));
-
+     // this.intervalSubs = this.retornaIntervalo().subscribe((valor) => console.log(valor));
+     this.intervalSubs = this.retornaIntervalo().subscribe();
   }
   ngOnDestroy(): void {
    this.intervalSubs.unsubscribe();
