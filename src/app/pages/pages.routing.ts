@@ -17,6 +17,8 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 
 
@@ -41,18 +43,21 @@ const routes: Routes = [
     // rutas hijas: son las que pueden manejar el mismo diseño de la pagina.
     children: [
       { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
-      { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
+      { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajuste de Cuenta' } },
+      { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' } },
       { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráfica #1' } },
+      { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
+      { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
-      { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajuste de Cuenta' } },
-      { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
 
       // Modulos de Mantenimientos
-      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Matenimiento de Usuarios' } },
       { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Matenimiento de Hospitales' } },
       { path: 'medicos', component: MedicosComponent, data: { titulo: 'Matenimiento de Médicos' } },
       { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Matenimiento de Médicos' } },
+
+      // usuarios admin
+      { path: 'usuarios', canActivate: [AdminGuard], component: UsuariosComponent, data: { titulo: 'Matenimiento de Usuarios' } },
     ]
   }
 ];

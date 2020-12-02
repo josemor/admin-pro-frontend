@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,21 +10,26 @@ import { Usuario } from '../../models/usuario.models';
   ]
 })
 export class HeaderComponent {
-
-  /* public imgUrl = '';
-  public nomUser = '';
-  public correoUser = '';*/
   public usuario: Usuario;
 
-  constructor( private usuarioService: UsuarioService) {
+  constructor( private usuarioService: UsuarioService,
+               private router: Router) {
     this.usuario = usuarioService.usuario;
-    /*this.imgUrl = usuarioService.usuario.imagenUrl;
-    this.nomUser = usuarioService.usuario.nombre;
-    this.correoUser = usuarioService.usuario.email;*/
    }
 
+  // tslint:disable-next-line: typedef
   logOut() {
     this.usuarioService.logOut();
   }
+
+  // tslint:disable-next-line: typedef
+  buscar( termino: string ) {
+    if (termino.length === 0) {
+      this.router.navigateByUrl('/dashboard');
+    }
+    this.router.navigateByUrl(`/dashboard/buscar/${termino}`);
+  }
+
+
 
 }

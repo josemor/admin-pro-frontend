@@ -61,27 +61,29 @@ export class MedicoComponent implements OnInit {
         _id: this.medicoSelecionado._id
       };
       Swal.fire({
-        title: '¿Actualizar médico?',
-        html: `Esta a punto de Actualizar el médico ${text}`,
+        title: '¿Desea Actualizar?',
+        html: `Esta a punto de Actualizar el médico/@ <br> ${text}`,
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Si, Crearlo!'
-      }).then(() => {
-        this.medicoService.actualizarMedicos(data).subscribe((resp) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            html: `El médico, ${text} fue Actualizado`,
-            showConfirmButton: false,
-            timer: 2000
+      }).then(( result ) => {
+        if (result.isConfirmed) {
+          this.medicoService.actualizarMedicos(data).subscribe((resp) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              html: `El médico, ${text} fue Actualizado`,
+              showConfirmButton: false,
+              timer: 2000
+            });
           });
-        });
+        }
       });
     } else {
       // crear
       Swal.fire({
-        title: '¿Crear médico?',
-        html: `Esta a punto de crear el médico ${text}`,
+        title: '¿Desea crear un médico?',
+        html: `Esta a punto de crear el médico/@:<br>${text}`,
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Si, Crearlo!'

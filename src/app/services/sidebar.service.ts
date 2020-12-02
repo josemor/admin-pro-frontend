@@ -5,7 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class SidebarService {
 
-  menu: any[] = [
+  public menu = [];
+
+  // tslint:disable-next-line: typedef
+  cargarMenu() {
+    this.menu = JSON.parse(localStorage.getItem('menu')) || [];
+
+  }
+
+  /*menu: any[] = [
     {
       titulo: 'Dashboard',
       icono: 'mdi mdi-gauge',
@@ -30,7 +38,6 @@ export class SidebarService {
         ]
 
     }
-  ];
+  ];*/
 
-  constructor() { }
 }

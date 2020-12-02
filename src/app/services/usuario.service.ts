@@ -40,6 +40,10 @@ export class UsuarioService {
     return this.usuario.uid || '';
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
+  }
+
   // Metodo encargado de cargar los headers en los servicios
   // tslint:disable-next-line: typedef
   get headers() {
@@ -48,6 +52,12 @@ export class UsuarioService {
         'x-token': this.token
       }
     };
+  }
+
+  // tslint:disable-next-line: typedef
+  guardarLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
   }
 
   // Metodo para inicializar usuarios de google
@@ -68,7 +78,9 @@ export class UsuarioService {
   // Metodo que se encarga de realizar el LogOut de un usuario
   // tslint:disable-next-line: typedef
   logOut() {
+    // TODO: Borrar Menú
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
@@ -86,7 +98,7 @@ export class UsuarioService {
       map((resp: any) => {
         const { email, google, nombre, role, img = '', uid } = resp.usuario;
         this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorage( resp.token, resp.menu );
 
         return true;
       }),
@@ -99,19 +111,19 @@ export class UsuarioService {
   // tslint:disable-next-line: typedef
   actualizarPerfil(data: { email: string, nombre: string, role: string }) {
 
-      data = {
-        ...data,
-        role: this.usuario.role
-      };
+    data = {
+      ...data,
+      role: this.usuario.role
+    };
 
-      return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.headers);
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.headers);
   }
   // Metodo en cargado de crear un usuario
   // tslint:disable-next-line: typedef
   crearUsuario(formData: RegisterForm) {
     return this.http.post(`${base_url}/usuarios`, formData).pipe(
       tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorage( resp.token, resp.menu );
       })
     );
   }
@@ -122,7 +134,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData)
       .pipe(
         tap((resp: any) => {
-          localStorage.setItem('token', resp.token);
+          this.guardarLocalStorage( resp.token, resp.menu );
         })
       );
   }
@@ -132,14 +144,13 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`, { token })
       .pipe(
         tap((resp: any) => {
-          localStorage.setItem('token', resp.token);
+          this.guardarLocalStorage( resp.token, resp.menu );
         })
       );
   }
 
   // tslint:disable-next-line: typedef
   cargarUsuarios(desde: number = 0) {
-    // http://localhost:3000/api/usuarios?desde=5
     const url = `${base_url}/usuarios?desde=${desde}`;
     return this.http.get<CargarUsuario>(url, this.headers).pipe(
       map(resp => {
@@ -166,4 +177,6 @@ export class UsuarioService {
   guardarUsuario(usuario: Usuario) {
     return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers);
   }
+
+
 }

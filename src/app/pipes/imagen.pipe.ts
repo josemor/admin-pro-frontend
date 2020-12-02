@@ -11,7 +11,7 @@ export class ImagenPipe implements PipeTransform {
   transform(img: string, tipo: 'usuarios' | 'medicos' | 'hospitales'): string {
 
     if (!img) {
-      return `${ BASE_URL }/upload/hospitales/no-user`;
+      return `${ BASE_URL }/upload/${tipo}/no-user`;
 
     } else if (img.includes('https')) {
       return img;
@@ -20,7 +20,7 @@ export class ImagenPipe implements PipeTransform {
       return `${ BASE_URL }/upload/${ tipo }/${ img }`;
 
     } else {
-      return `${BASE_URL}/upload/hospitales/no-user`;
+      return `${BASE_URL}/upload/${tipo}/no-user`;
     }
   }
 
