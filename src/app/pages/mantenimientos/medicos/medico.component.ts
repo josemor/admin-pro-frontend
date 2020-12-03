@@ -97,7 +97,7 @@ export class MedicoComponent implements OnInit {
               showConfirmButton: false,
               timer: 2000
             });
-            this.roter.navigateByUrl(`/dashboard/medicos/${resp.medico._id}`);
+            this.roter.navigateByUrl(`/dashboard/medico/${resp.medico._id}`);
           });
         }
       });
