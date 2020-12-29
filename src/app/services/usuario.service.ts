@@ -62,15 +62,15 @@ export class UsuarioService {
 
   // Metodo para inicializar usuarios de google
   // tslint:disable-next-line: typedef
-  googleInit() {
+  googleInit()  {
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
           client_id: '103250112893-2aqrla524d9ptq9dvdspfmiqo5qn3a1c.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
-        resolve();
+        resolve(this.auth2);
       });
     });
   }
